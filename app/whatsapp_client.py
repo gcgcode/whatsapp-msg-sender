@@ -1,3 +1,5 @@
+from cmath import log
+import logging
 import os
 import requests
 
@@ -12,10 +14,11 @@ class WhatsAppWrapper:
 
     def __init__(self):
         self.headers = {
-            "Authorization": f"Bearer {self.API_TOKEN}",
+            #"Authorization": f"Bearer {self.API_TOKEN}",
+            "Authorization": "Bearer EAAPZC3q7dV18BABtENvY2NQzxtwcwiGe5T2GYOpLO92tNuZBwUqMsI8Ltp6JtwVSZCajj9J0FgT3GtO8JTT1H8C9pEnAEVTGW0eEEMrdAFEqldd8BYP9AFI53eX564Tv0t8ZCjLRZAPYeME76cg7fDbCCYO3FXdfem51D2RY3BpcZB17DvecIirsmn72SgG8B28bsmeQrVd3WXGjElmZAhw",
             "Content-Type": "application/json",
         }
-        self.API_URL = self.API_URL + self.NUMBER_ID
+        self.API_URL = str(self.API_URL) + str(self.NUMBER_ID)
 
     def send_template_message(self, template_name, language_code, phone_number):
 
@@ -31,8 +34,13 @@ class WhatsAppWrapper:
             }
         })
 
-        response = requests.request("POST", f"{self.API_URL}/messages", headers=self.headers, data=payload)
+        #logging.debug('msg');
 
-        assert response.status_code == 200, "Error sending message"
+        #f"{self.API_URL}/messages"
+
+        response = requests.request("POST", "https://graph.facebook.com/v13.0/105769248921601/messages", headers=self.headers, data=payload)
+        #response = requests.request("POST", str(self.API_URL) + str(self.NUMBER_ID), headers=self.headers, data=payload)
+
+        assert response.status_code == 200, {response.status_code}
 
         return response.status_code
