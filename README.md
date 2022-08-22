@@ -1,2 +1,4 @@
-# web-changer-bot
-Trying to develope a python bot to be used in a particular case: change category tittles in Confluence.
+# Whatsapp Bot - Message Sender
+This bot send messages via the Whatsapp Bussiness Cloud Api.
+The project is configured to send message templates but you can change the code to enable sending personalized messages.
+
